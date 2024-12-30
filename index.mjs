@@ -1,12 +1,11 @@
 import express from "express";
 import fetch from "node-fetch";
-
+import serverless from "serverless-http";
 import "dotenv/config";
 
 const app = express();
-const PORT = 5000;
 
-const url = `https://${APIHOST}/get-info-rapidapi?url=https%3A%2F%2Fhttps://www.instagram.com/p/DEDENanARo6/?utm_source=ig_web_copy_link`;
+const urlBase = `https://${process.env.APIHOST}/get-info-rapidapi`;
 
 const options = {
   method: "GET",
@@ -16,11 +15,13 @@ const options = {
   },
 };
 
-// Route to trigger the Instagram API call
 app.get("/get-insta", async (req, res) => {
   try {
-    const response = await fetch(url, options);
-    const result = await response.json(); // Parsing as JSON
+    const queryUrl = encodeURIComponent(
+      "https://www.instagram.com/p/DEDENanARo6/?utm_source=ig_web_copy_link"
+    );
+    const response = await fetch(`${urlBase}?url=${queryUrl}`, options);
+    const result = await response.json();
     res.json(result || { message: "No data found" });
   } catch (error) {
     console.error(error);
@@ -28,16 +29,9 @@ app.get("/get-insta", async (req, res) => {
   }
 });
 
-// Test route
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-// Start the server with error handling
-app.listen(PORT, (error) => {
-  if (error) {
-    console.error("Error starting the server:", error);
-  } else {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  }
-});
+// Export for Netlify Functions
+module.exports.handler = serverless(app);
