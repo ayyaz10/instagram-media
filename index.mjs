@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 import "dotenv/config";
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 const url = `https://${APIHOST}/get-info-rapidapi?url=https%3A%2F%2Fhttps://www.instagram.com/p/DEDENanARo6/?utm_source=ig_web_copy_link`;
 
