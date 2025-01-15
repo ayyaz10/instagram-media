@@ -1,10 +1,14 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const ServerlessHttp = require("serverless-http");
+const cors = require("cors");
 
 require("dotenv").config();
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const urlBase = `https://${process.env.APIHOST}/get-info-rapidapi`;
 
