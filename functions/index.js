@@ -21,7 +21,7 @@ const options = {
   },
 };
 
-app.get("/.netlify/functions/index/get-insta", async (req, res) => {
+app.post("/.netlify/functions/index/get-insta", async (req, res) => {
   const { type, link } = req.body;
   try {
     // const queryUrl = encodeURIComponent(
