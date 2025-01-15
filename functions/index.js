@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
 const ServerlessHttp = require("serverless-http");
 const cors = require("cors");
